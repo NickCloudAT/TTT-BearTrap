@@ -68,7 +68,7 @@ local function DoBleed(ent)
 end
 
 function ENT:Touch(toucher)
-	if !IsValid(toucher) and !toucher:IsPlayer() then return end	
+	if !IsValid(toucher) and !toucher:IsPlayer() then return end
 	if self:GetSequence() ~= 0 and self:GetSequence() ~= 2 then
 		self:SetPlaybackRate(1)
 		self:SetCycle(0)
@@ -84,7 +84,7 @@ function ENT:Touch(toucher)
 			toucher:ChatPrint("BearTrap: Dont't be sad. You have a little chance of escaping this trap :)")
 			timer.Create("beartrapdmg" .. toucher:EntIndex(), 1, 0, function()
 				if !IsValid(toucher) then timer.Destroy("beartrapdmg" .. toucher:EntIndex()) return end
-				
+
 				local randint = math.random(1, 100)
 				if randint == 32 or randint == 76 or randint == 15 then
 					timer.Destroy("beartrapdmg" .. toucher:EntIndex())
@@ -93,7 +93,7 @@ function ENT:Touch(toucher)
 					toucher:ChatPrint("BearTrap: You had luck and escaped the beartrap!")
 					return
 				end
-				
+
 				toucher:TakeDamageInfo(dmg)
 				toucher:Freeze(true)
 				DoBleed(toucher)
@@ -105,7 +105,7 @@ function ENT:Touch(toucher)
 				end
 			end)
 		end
-		
+
 		timer.Simple(0.1, function() self:SetSequence("ClosedIdle") end)
 	end
 end
@@ -122,11 +122,11 @@ end
 
 function ENT:Use(act)
 	if IsValid(act) and act:IsPlayer() then
-		
-		if self.Owner:Alive() and act != self.Owner then
+
+		if self.Owner:Alive() and act ~= self.Owner then
 			return
 		end
-		
+
 		if !act:HasWeapon("weapon_ttt_beartrap") then
 			act:Give("weapon_ttt_beartrap")
 			self:Remove()
