@@ -2,42 +2,6 @@ AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
 include("shared.lua")
 
-resource.AddFile("sound/beartrap.wav")
-resource.AddFile("models/stiffy360/c_beartrap.dx80.vtx")
-resource.AddFile("models/stiffy360/c_beartrap.dx90.vtx")
-resource.AddFile("models/stiffy360/c_beartrap.mdl")
-resource.AddFile("models/stiffy360/c_beartrap.sw.vtx")
-resource.AddFile("models/stiffy360/c_beartrap.vvd")
-resource.AddFile("models/stiffy360/c_beartrap.xbox.vtx")
-resource.AddFile("models/stiffy360/beartrap.dx80.vtx")
-resource.AddFile("models/stiffy360/beartrap.dx90.vtx")
-resource.AddFile("models/stiffy360/beartrap.mdl")
-resource.AddFile("models/stiffy360/beartrap.phy")
-resource.AddFile("models/stiffy360/beartrap.sw.vtx")
-resource.AddFile("models/stiffy360/beartrap.vvd")
-resource.AddFile("models/stiffy360/beartrap.xbox.vtx")
-resource.AddFile("materials/models/freeman/beartrap_specular.vtf")
-resource.AddFile("materials/models/freeman/beartrap_diffuse.vtf")
-resource.AddFile("materials/models/freeman/trap_dif.vmt")
-resource.AddFile("materials/models/stiffy360/c_beartrap.dx80.vtx")
-resource.AddFile("materials/models/stiffy360/c_beartrap.dx90.vtx")
-resource.AddFile("materials/models/stiffy360/c_beartrap.mdl")
-resource.AddFile("materials/models/stiffy360/c_beartrap.sw.vtx")
-resource.AddFile("materials/models/stiffy360/c_beartrap.vvd")
-resource.AddFile("materials/models/stiffy360/c_beartrap.xbox.vtx")
-resource.AddFile("materials/models/stiffy360/beartrap.dx80.vtx")
-resource.AddFile("materials/models/stiffy360/beartrap.dx90.vtx")
-resource.AddFile("materials/models/stiffy360/beartrap.mdl")
-resource.AddFile("materials/models/stiffy360/beartrap.phy")
-resource.AddFile("materials/models/stiffy360/beartrap.sw.vtx")
-resource.AddFile("materials/models/stiffy360/beartrap.vvd")
-resource.AddFile("materials/models/stiffy360/beartrap.xbox.vtx")
-resource.AddFile("materials/vgui/ttt/icon_beartrap.png")
-resource.AddFile("vgui/ttt/icon_beartrap.vmt")
-resource.AddFile("vgui/ttt/icon_beartrap.vtf")
-resource.AddFile("materials/icon_beartrap.vmt")
-resource.AddFile("materials/icon_beartrap.vtf")
-
 function ENT:Initialize()
 	self:SetModel("models/stiffy360/beartrap.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
@@ -81,6 +45,10 @@ function ENT:Touch(toucher)
 		dmg:SetDamage(8)
 		dmg:SetDamageType(DMG_GENERIC)
 		if toucher:IsPlayer() then
+			if TTT2 then -- add element to HUD if TTT2 is loaded
+				STATUS:AddStatus(toucher, "ttt2_beartrap")
+			end
+
 			toucher:ChatPrint("BearTrap: Dont't be sad. You have a little chance of escaping this trap :)")
 			timer.Create("beartrapdmg" .. toucher:EntIndex(), 1, 0, function()
 				if !IsValid(toucher) then timer.Destroy("beartrapdmg" .. toucher:EntIndex()) return end
@@ -91,6 +59,11 @@ function ENT:Touch(toucher)
 					toucher.IsTrapped = false
 					toucher:Freeze(false)
 					toucher:ChatPrint("BearTrap: You had luck and escaped the beartrap!")
+					
+					if TTT2 then -- remove element to HUD if TTT2 is loaded
+						STATUS:RemoveStatus(toucher, "ttt2_beartrap")
+					end
+
 					return
 				end
 
