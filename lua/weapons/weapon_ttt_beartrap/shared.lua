@@ -34,6 +34,7 @@ end
 if SERVER then
 
 	resource.AddFile("materials/vgui/ttt/icon_beartrap.png")
+	resource.AddFile("materials/vgui/ttt/hud_icon_beartrap.png")
 	
 	resource.AddFile("materials/models/freeman/beartrap_diffuse.vtf")
 	resource.AddFile("materials/models/freeman/beartrap_specular.vtf")
