@@ -57,7 +57,8 @@ function ENT:Touch(toucher)
 		toucher.IsTrapped = true
 		local dmg = DamageInfo()
 		dmg:SetAttacker(self.Owner)
-		dmg:SetInflictor(self)
+		local inflictor = ents.Create("weapon_ttt_beartrap")
+		dmg:SetInflictor(inflictor)
 		dmg:SetDamage(8)
 		dmg:SetDamageType(DMG_GENERIC)
 
@@ -66,7 +67,7 @@ function ENT:Touch(toucher)
 		end
 
 		LangChatPrint(toucher, "ttt_bt_catched")
-		
+
 		timer.Create("beartrapdmg" .. toucher:EntIndex(), 1, 0, function()
 			if !IsValid(toucher) then timer.Destroy("beartrapdmg" .. toucher:EntIndex()) return end
 
