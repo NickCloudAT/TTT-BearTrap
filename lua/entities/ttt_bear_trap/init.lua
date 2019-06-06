@@ -31,6 +31,13 @@ local function DoBleed(ent)
    util.PaintDown(ent:GetPos() + jitter, "Blood", ent)
 end
 
+util.AddNetworkString("ttt_bt_send_to_chat")
+local function LangChatPrint(ply, lang_key)
+	net.Start("ttt_bt_send_to_chat")
+	net.WriteString(lang_key)
+	net.Send(ply)
+end
+
 function ENT:Touch(toucher)
 	if not IsValid(toucher) or not IsValid(self) then return end
 	if self:GetSequence() ~= 0 and self:GetSequence() ~= 2 then
@@ -58,7 +65,8 @@ function ENT:Touch(toucher)
 			STATUS:AddStatus(toucher, "ttt2_beartrap")
 		end
 
-		toucher:ChatPrint("BearTrap: Don't be sad. You have a little chance of escaping this trap :)")
+		LangChatPrint(toucher, "ttt_bt_catched")
+		
 		timer.Create("beartrapdmg" .. toucher:EntIndex(), 1, 0, function()
 			if !IsValid(toucher) then timer.Destroy("beartrapdmg" .. toucher:EntIndex()) return end
 
@@ -67,7 +75,7 @@ function ENT:Touch(toucher)
 				timer.Destroy("beartrapdmg" .. toucher:EntIndex())
 				toucher.IsTrapped = false
 				toucher:Freeze(false)
-				toucher:ChatPrint("BearTrap: You had luck and escaped the beartrap!")
+				LangChatPrint(toucher, "ttt_bt_escaped")
 
 				if TTT2 then -- remove element to HUD if TTT2 is loaded
 					STATUS:RemoveStatus(toucher, "ttt2_beartrap")
@@ -79,13 +87,17 @@ function ENT:Touch(toucher)
 			toucher:TakeDamageInfo(dmg)
 			toucher:Freeze(true)
 			DoBleed(toucher)
+
 			if !toucher:Alive() or !toucher.IsTrapped or !IsValid(self) then
 				timer.Destroy("beartrapdmg" .. toucher:EntIndex())
 				toucher.IsTrapped = false
 				toucher:Freeze(false)
+				LangChatPrint(toucher, "ttt_bt_freed")
+
 				if TTT2 then -- remove element to HUD if TTT2 is loaded
 					STATUS:RemoveStatus(toucher, "ttt2_beartrap")
 				end
+
 				return
 			end
 		end)
