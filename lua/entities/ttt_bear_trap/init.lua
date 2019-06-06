@@ -62,6 +62,8 @@ function ENT:Touch(toucher)
 		dmg:SetDamage(8)
 		dmg:SetDamageType(DMG_GENERIC)
 
+		local escpct = GetConVar("ttt_beartrap_escape_pct"):GetFloat()
+
 		if TTT2 then -- add element to HUD if TTT2 is loaded
 			STATUS:AddStatus(toucher, "ttt2_beartrap")
 		end
@@ -71,8 +73,9 @@ function ENT:Touch(toucher)
 		timer.Create("beartrapdmg" .. toucher:EntIndex(), 1, 0, function()
 			if !IsValid(toucher) then timer.Destroy("beartrapdmg" .. toucher:EntIndex()) return end
 
-			local randint = math.random(1, 100)
-			if randint == 32 or randint == 76 or randint == 15 then
+			local randint = math.Rand(0, 1)
+			randint = math.Round(randint, 2)
+			if randint <= escpct then
 				timer.Destroy("beartrapdmg" .. toucher:EntIndex())
 				toucher.IsTrapped = false
 				toucher:Freeze(false)

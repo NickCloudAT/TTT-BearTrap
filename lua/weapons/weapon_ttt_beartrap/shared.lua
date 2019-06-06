@@ -1,5 +1,5 @@
 if CLIENT then
-   SWEP.Slot      = 7 
+   SWEP.Slot      = 7
 
 	SWEP.ViewModelFlip		= false
 	SWEP.ViewModelFOV		= 54
@@ -25,7 +25,7 @@ if CLIENT then
 	  name = "Beartrap",
       desc = [[OM NOM NOM... OM NOM ]]
    }
-   
+
 	function SWEP:GetViewModelPosition(pos, ang)
 		return pos + ang:Forward() * 15, ang
 	end
@@ -35,13 +35,13 @@ if SERVER then
 
 	resource.AddFile("materials/vgui/ttt/icon_beartrap.png")
 	resource.AddFile("materials/vgui/ttt/hud_icon_beartrap.png")
-	
+
 	resource.AddFile("materials/models/freeman/beartrap_diffuse.vtf")
 	resource.AddFile("materials/models/freeman/beartrap_specular.vtf")
 	resource.AddFile("materials/models/freeman/trap_dif.vmt")
-	
+
 	resource.AddFile("sound/beartrap.wav")
-	
+
 	resource.AddFile("models/stiffy360/beartrap.dx80.vtx")
 	resource.AddFile("models/stiffy360/beartrap.dx90.vtx")
 	resource.AddFile("models/stiffy360/beartrap.mdl")
@@ -49,14 +49,16 @@ if SERVER then
 	resource.AddFile("models/stiffy360/beartrap.sw.vtx")
 	resource.AddFile("models/stiffy360/beartrap.vvd")
 	resource.AddFile("models/stiffy360/beartrap.xbox.vtx")
-	
+
 	resource.AddFile("models/stiffy360/c_beartrap.dx80.vtx")
 	resource.AddFile("models/stiffy360/c_beartrap.dx90.vtx")
 	resource.AddFile("models/stiffy360/c_beartrap.mdl")
 	resource.AddFile("models/stiffy360/c_beartrap.sw.vtx")
 	resource.AddFile("models/stiffy360/c_beartrap.vvd")
 	resource.AddFile("models/stiffy360/c_beartrap.xbox.vtx")
-	
+
+  CreateConVar(ttt_beartrap_escape_pct, 0.03, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_NOTIFY}, "Escape chance each time you get damaged by the BearTrap")
+
 end
 
 function SWEP:Deploy()
@@ -66,7 +68,7 @@ end
 if SERVER then
 	AddCSLuaFile()
 
-	
+
 	function SWEP:PrimaryAttack()
 		local tr = util.TraceLine({start = self.Owner:GetShootPos(), endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 100, filter = self.Owner})
 		if tr.HitWorld then
@@ -84,15 +86,15 @@ if SERVER then
 			end
 		end
 	end
-	
+
 	function SWEP:Deploy()
 	end
-	
+
 	function SWEP:OnRemove()
 		if self.Owner:IsValid() and self.Owner:IsPlayer() then
 			self.Owner:ConCommand("lastinv")
 		end
 	end
-	
-	
+
+
 end
