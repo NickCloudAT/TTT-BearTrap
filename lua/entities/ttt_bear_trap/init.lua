@@ -58,7 +58,7 @@ function ENT:Touch(toucher)
 			STATUS:AddStatus(toucher, "ttt2_beartrap")
 		end
 
-		toucher:ChatPrint("BearTrap: Dont't be sad. You have a little chance of escaping this trap :)")
+		toucher:ChatPrint("BearTrap: Don't be sad. You have a little chance of escaping this trap :)")
 		timer.Create("beartrapdmg" .. toucher:EntIndex(), 1, 0, function()
 			if !IsValid(toucher) then timer.Destroy("beartrapdmg" .. toucher:EntIndex()) return end
 
