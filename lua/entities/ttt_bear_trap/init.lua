@@ -92,7 +92,10 @@ function ENT:Touch(toucher)
 				timer.Destroy("beartrapdmg" .. toucher:EntIndex())
 				toucher.IsTrapped = false
 				toucher:Freeze(false)
-				LangChatPrint(toucher, "ttt_bt_freed")
+
+				if toucher:Health() > 0 then
+					LangChatPrint(toucher, "ttt_bt_freed")
+				end
 
 				if TTT2 then -- remove element to HUD if TTT2 is loaded
 					STATUS:RemoveStatus(toucher, "ttt2_beartrap")
