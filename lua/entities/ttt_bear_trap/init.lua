@@ -75,7 +75,8 @@ function ENT:Touch(toucher)
 
 			local randint = math.Rand(0, 1)
 			randint = math.Round(randint, 2)
-			if randint <= escpct then
+
+			if randint < escpct then
 				timer.Destroy("beartrapdmg" .. toucher:EntIndex())
 				toucher.IsTrapped = false
 				toucher:Freeze(false)
