@@ -149,7 +149,10 @@ function ENT:OnTakeDamage(dmg)
 			self:SetPlaybackRate(1)
 			self:SetCycle(0)
 			self:SetSequence("Snap")
-			timer.Simple(0.1, function() self:SetSequence("ClosedIdle") end)
+			timer.Simple(0.1, function()
+				if not IsValid(self) then return end
+				self:SetSequence("ClosedIdle")
+			end)
 		end
 	end
 end
