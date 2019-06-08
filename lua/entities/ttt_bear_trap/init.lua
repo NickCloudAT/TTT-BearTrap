@@ -59,7 +59,7 @@ function ENT:Touch(toucher)
 		dmg:SetAttacker(self.Owner)
 		local inflictor = ents.Create("weapon_ttt_beartrap")
 		dmg:SetInflictor(inflictor)
-		dmg:SetDamage(8)
+		dmg:SetDamage(GetConVar("ttt_beartrap_damage_per_tick"):GetInt())
 		dmg:SetDamageType(DMG_GENERIC)
 
 		local escpct = GetConVar("ttt_beartrap_escape_pct"):GetFloat()
