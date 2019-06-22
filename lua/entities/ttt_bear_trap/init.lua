@@ -130,7 +130,7 @@ end
 function ENT:Use(act)
 	if IsValid(act) and act:IsPlayer() and IsValid(self) then
 
-		if self.Owner:Alive() and act ~= self.Owner then
+		if if self.Owner and self.Owner:Alive() and act ~= self.Owner then
 			return
 		end
 
