@@ -93,7 +93,7 @@ function ENT:Touch(toucher)
 			toucher:Freeze(true)
 			DoBleed(toucher)
 
-			if !toucher:Alive() or !toucher.IsTrapped or !IsValid(self) then
+			if not toucher:IsTerror() or not toucher:Alive() or not toucher.IsTrapped or not IsValid(self) then
 				timer.Destroy("beartrapdmg" .. toucher:EntIndex())
 				toucher.IsTrapped = false
 				toucher:Freeze(false)
@@ -130,7 +130,7 @@ end
 function ENT:Use(act)
 	if IsValid(act) and act:IsPlayer() and IsValid(self) then
 
-		if if self.Owner and self.Owner:Alive() and act ~= self.Owner then
+		if self.Owner and self.Owner:IsTerror() and act ~= self.Owner then
 			return
 		end
 
