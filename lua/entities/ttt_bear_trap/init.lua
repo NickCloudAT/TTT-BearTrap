@@ -54,6 +54,8 @@ function ENT:Touch(toucher)
 			return
 		end
 
+		if toucher.IsTrapped then return end
+
 		toucher.IsTrapped = true
 		local dmg = DamageInfo()
 		dmg:SetAttacker(self.Owner)
