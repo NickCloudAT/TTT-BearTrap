@@ -57,12 +57,6 @@ function ENT:Touch(toucher)
 		if toucher.IsTrapped then return end
 
 		toucher.IsTrapped = true
-		local dmg = DamageInfo()
-		dmg:SetAttacker(self.Owner)
-		local inflictor = ents.Create("weapon_ttt_beartrap")
-		dmg:SetInflictor(inflictor)
-		dmg:SetDamage(GetConVar("ttt_beartrap_damage_per_tick"):GetInt())
-		dmg:SetDamageType(DMG_GENERIC)
 
 		local escpct = GetConVar("ttt_beartrap_escape_pct"):GetFloat()
 
@@ -91,10 +85,6 @@ function ENT:Touch(toucher)
 				return
 			end
 
-			toucher:TakeDamageInfo(dmg)
-			toucher:Freeze(true)
-			DoBleed(toucher)
-
 			if not toucher:IsTerror() or not toucher:Alive() or not toucher.IsTrapped or not IsValid(self) then
 				timer.Destroy("beartrapdmg" .. toucher:EntIndex())
 				toucher.IsTrapped = false
@@ -110,6 +100,18 @@ function ENT:Touch(toucher)
 
 				return
 			end
+
+			local dmg = DamageInfo()
+			dmg:SetAttacker(self.Owner)
+			local inflictor = ents.Create("weapon_ttt_beartrap")
+			dmg:SetInflictor(inflictor)
+			dmg:SetDamage(GetConVar("ttt_beartrap_damage_per_tick"):GetInt())
+			dmg:SetDamageType(DMG_GENERIC)
+
+			toucher:TakeDamageInfo(dmg)
+			toucher:Freeze(true)
+			DoBleed(toucher)
+
 		end)
 
 		timer.Simple(0.1, function()
@@ -132,8 +134,10 @@ end
 function ENT:Use(act)
 	if IsValid(act) and act:IsPlayer() and IsValid(self) then
 
-		if self.Owner and self.Owner:IsTerror() and act ~= self.Owner then
-			return
+		if self.Owner and IsValid(self.Owner) then
+			if self.Owner:IsTerror() and self.Owner ~= act then
+				return
+			end
 		end
 
 		if !act:HasWeapon("weapon_ttt_beartrap") then
