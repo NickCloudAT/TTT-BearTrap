@@ -11,7 +11,7 @@ if SERVER then
 end
 
 if CLIENT then
-	hook.Add('TTTUlxModifySettings', 'TTTBeartrapModifySettings', function(name)
+	hook.Add('TTTUlxModifyAddonSettings', 'TTTBeartrapModifySettings', function(name)
 		local tttrspnl = xlib.makelistlayout{w = 415, h = 318, parent = xgui.null}
 
 		local tttrsclp = vgui.Create('DCollapsibleCategory', tttrspnl)
@@ -32,5 +32,5 @@ if CLIENT then
 
 		xgui.hookEvent('onProcessModules', nil, tttrspnl.processModules)
 		xgui.addSubModule('Beartrap', tttrspnl, nil, name)
-    end)
+	end)
 end
