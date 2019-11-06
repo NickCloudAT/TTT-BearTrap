@@ -79,6 +79,7 @@ if SERVER then
 				ent:SetAngles(ang)
 				ent:Spawn()
 				ent.Owner = self.Owner
+        ent:SetNWEntity('BTOWNER', self.Owner)
 				ent.fingerprints = self.fingerprints
 				self:Remove()
 			end
