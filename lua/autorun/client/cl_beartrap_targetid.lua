@@ -19,8 +19,8 @@ hook.Add('TTTRenderEntityInfo', 'ttt2_beartrap_highlight_beartrap', function(dat
 
   params.drawInfo = true
   params.displayInfo.key = input.GetKeyCode(input.LookupBinding('+use'))
-  params.displayInfo.title.text = LANG.GetTranslation('ttt_bt_pickup')
-  params.displayInfo.subtitle.text = "Beartrap"
+  params.displayInfo.title.text = "Beartrap"
+  params.displayInfo.subtitle.text = LANG.GetTranslation('ttt_bt_pickup')
   params.drawOutline = true
   params.outlineColor = client:GetRoleColor()
 end)
