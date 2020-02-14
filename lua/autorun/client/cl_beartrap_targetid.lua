@@ -1,15 +1,15 @@
 -- handle looking at beartraps
-hook.Add('TTTRenderEntityInfo', 'ttt2_beartrap_highlight_beartrap', function(data, params)
+hook.Add('TTTRenderEntityInfo', 'ttt2_beartrap_highlight_beartrap', function(tData)
   local client = LocalPlayer()
-  local bt_class = data.ent:GetClass()
+  local bt_class = tData:GetEntity():GetClass()
 
-  if data.distance > 100 then return end
+  if tData:GetEntityDistance() > 100 then return end
   if bt_class ~= "ttt_bear_trap" then return end
   if not IsValid(client) or not client:IsTerror() or not client:Alive() then return end
 
   local canPickup = true
 
-  local bt_owner = data.ent:GetNWEntity('BTOWNER')
+  local bt_owner = tData:GetEntity():GetNWEntity('BTOWNER')
 
   if IsValid(bt_owner) and bt_owner ~= client then
     if bt_owner:IsTerror() then canPickup = false end
@@ -17,10 +17,12 @@ hook.Add('TTTRenderEntityInfo', 'ttt2_beartrap_highlight_beartrap', function(dat
 
   if not canPickup then return end
 
-  params.drawInfo = true
-  params.displayInfo.key = input.GetKeyCode(input.LookupBinding('+use'))
-  params.displayInfo.title.text = "Beartrap"
-  params.displayInfo.subtitle.text = LANG.GetTranslation('ttt_bt_pickup')
-  params.drawOutline = true
-  params.outlineColor = client:GetRoleColor()
+  tData:EnableText()
+  tData:EnableOutline()
+  tData:SetOutlineColor(client:GetRoleColor())
+
+  tData:SetTitle("Beartrap")
+  tData:SetSubtitle(LANG.GetTranslation('ttt_bt_pickup'))
+  tData:SetKeyBinding("+use")
+
 end)
