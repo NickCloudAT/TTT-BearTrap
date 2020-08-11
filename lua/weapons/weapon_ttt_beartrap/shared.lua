@@ -1,8 +1,7 @@
 if CLIENT then
-   SWEP.Slot      = 7
-
-	SWEP.ViewModelFlip		= false
-	SWEP.ViewModelFOV		= 54
+  SWEP.Slot = 7
+  SWEP.ViewModelFlip = false
+  SWEP.ViewModelFOV	= 54
 end
 
 SWEP.Base = "weapon_tttbase"
@@ -22,7 +21,7 @@ if CLIENT then
 
    SWEP.EquipMenuData = {
       type = "item_weapon",
-	  name = "Beartrap",
+      name = "Beartrap",
       desc = [[OM NOM NOM... OM NOM ]]
    }
 
