@@ -1,14 +1,14 @@
-L = LANG.GetLanguageTableReference("en")
+local L = LANG.GetLanguageTableReference("en")
 
-local beatrap_addon_name = '[BEARTRAP] '
+L["beartrap_name"] = "Beartrap"
+L["beartrap_desc"] = "OM NOM NOM... OM NOM"
 
-L["ttt_bt_catched"] = beatrap_addon_name .. "Don\'t be sad. You have a small chance of escaping this trap! :)"
-L["ttt_bt_escaped"] = beatrap_addon_name .. "You got lucky and escaped the beartrap!"
-L["ttt_bt_freed"] = beatrap_addon_name .. "You got lucky and were freed!"
-L["ttt_bt_pickup"] = beatrap_addon_name .. "Press [key] to pickup beatrap"
+L["beartrap_help_primary"] = "Plant the Beartrap."
 
-L["submenu_addons_beartrap_title"] = "Beartrap"
-L["help_beartrap_menu"] = "All Settings for the Beartrap rework by @NickCloudAT"
-L["header_addons_beartrap"] = "General Settings"
-L["label_beartrap_escape_pct"] = "Percentage to escape per tick"
-L["label_beartrap_damage_per_tick"] = "Damage per tick"
+L["ttt_bt_catched"] = "Don't be sad. You have a small chance of escaping this trap! :)"
+L["ttt_bt_escaped"] = "You got lucky and escaped the beartrap!"
+L["ttt_bt_freed"] = "You got lucky and were freed!"
+
+L["label_beartrap_disarm_health"] = "Disarm Health"
+L["label_beartrap_escape_pct"] = "Escape Percent"
+L["label_beartrap_damage_per_tick"] = "Damage Per Tick"
