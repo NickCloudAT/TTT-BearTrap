@@ -107,14 +107,15 @@ function ENT:Touch(toucher)
 			local dmg = DamageInfo()
 
 			local attacker = nil
-			if IsValid(self:GetOwner()) then
-				attacker = self:GetOwner()
+			if self.Owner and IsValid(self.Owner) then
+				attacker = self.Owner
 			else
 				attacker = toucher
 			end
 
 			dmg:SetAttacker(attacker)
 			local inflictor = ents.Create("weapon_ttt_beartrap")
+			inflictor:SetOwner(attacker)
 			dmg:SetInflictor(inflictor)
 			dmg:SetDamage(GetConVar("ttt_beartrap_damage_per_tick"):GetInt())
 			dmg:SetDamageType(DMG_GENERIC)
